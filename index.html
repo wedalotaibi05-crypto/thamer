@@ -407,10 +407,10 @@ var SAMPLES=[
  {name:'Grilled Chicken Meal',cat:'Cooked Meals',qty:4,unit:'meals',days:1,allergens:[],cond:'Good',storage:STOR[0],conf:92},
  {name:'Mixed Fruit Basket',cat:'Fresh Produce',qty:5,unit:'packs',days:2,allergens:[],cond:'Excellent',storage:STOR[1],conf:97}];
 var RECIP=[
- {id:'r1',name:'Al Amal Family Support',type:'Charity',dist:1.4,accepts:['Cooked Meals','Fresh Produce','Bakery'],fast:true},
+ {id:'r1',name:'PSU Student Pantry',type:'Charity',dist:1.4,accepts:['Cooked Meals','Fresh Produce','Bakery'],fast:true},
  {id:'r2',name:'Riyadh Food Bank',type:'Food bank',dist:3.1,accepts:CATS,fast:false},
  {id:'r3',name:'Dar Al Ehsan Shelter',type:'Shelter',dist:2.2,accepts:['Cooked Meals','Bakery'],fast:true},
- {id:'r4',name:'PSU Student Pantry',type:'Campus pantry',dist:0.3,accepts:['Packaged Food','Fresh Produce','Bakery','Dairy'],fast:true},
+ {id:'r4',name:'Al Amal Family Support',type:'Campus pantry',dist:0.3,accepts:['Packaged Food','Fresh Produce','Bakery','Dairy'],fast:true},
  {id:'fr_kac',name:'King Abdullah Community Fridge',type:'Community fridge',dist:0.8,accepts:CATS,fast:true}];
 var DPS=[
  {id:'dp1',type:'donation',name:'Campus Cafeteria surplus',desc:'Fresh meals · 8 portions',dist:0.2,x:108,y:222,art:'rice'},
@@ -429,10 +429,10 @@ function seed(){
   mk({name:'Whole Wheat Bread',cat:'Bakery',qty:12,unit:'loaves',useBy:fd(4),storage:STOR[1],allergens:['Gluten']}),
   mk({name:'Chicken Biryani Trays',cat:'Cooked Meals',qty:3,unit:'trays',useBy:fd(3),allergens:['Dairy']})];
  S.fridges=[
-  {id:'kac',name:'King Abdullah Community Fridge',dist:0.8,open:0,close:24,note:'Next to the community garden, shaded courtyard with seating.',host:'Riyadh Green Hands',temp:'3.2°C',
+  {id:'kac',name:'PSU Campus Fridge',dist:0.8,open:0,close:24,note:'Next to the community garden, shaded courtyard with seating.',host:'Riyadh Green Hands',temp:'3.2°C',
    stock:[mk({name:'Fresh Salads',qty:5,unit:'packs',useBy:fd(0),cat:'Fresh Produce',art:'salad'}),mk({name:'Grilled Chicken',qty:3,unit:'meals',useBy:fd(1),art:'chicken'}),mk({name:'Mixed Fruits',qty:4,unit:'packs',useBy:fd(1),cat:'Fresh Produce',storage:STOR[1],art:'fruits'})],
    log:[['Fresh Salads restocked','Today, 11:20 · by Sunrise Catering'],['Grilled Chicken collected (2 meals)','Today, 9:05 · by a recipient'],['Mixed Fruits added','Yesterday, 18:40 · by Green Basket Market'],['Temperature check passed','Yesterday, 12:00 · sensor']]},
-  {id:'psuf',name:'PSU Campus Fridge',dist:0.3,open:7,close:23,note:'Beside the student services building, open to students and neighbours.',host:'PSU Student Club',temp:'2.8°C',
+  {id:'psuf',name:'King Abdullah Community Fridge',dist:0.3,open:7,close:23,note:'Beside the student services building, open to students and neighbours.',host:'PSU Student Club',temp:'2.8°C',
    stock:[mk({name:'Whole Grain Wraps',qty:6,unit:'wraps',useBy:fd(0),cat:'Bakery',art:'bread'}),mk({name:'Vegetable Soup',qty:8,unit:'cups',useBy:fd(2),art:'soup'})],
    log:[['Whole Grain Wraps restocked','Today, 10:15 · by Campus Cafeteria'],['Vegetable Soup added','Yesterday, 19:30 · by a student donor']]},
   {id:'nak',name:'Al Nakheel Community Fridge',dist:2.1,open:6,close:24,note:'Inside the neighbourhood market courtyard.',host:'Al Nakheel Volunteers',temp:'3.6°C',
@@ -513,15 +513,15 @@ function roleGrid(sel){return '<div class="roles" role="radiogroup" aria-label="
 function pwField(id,label,val,show,tog,bind){return '<div class="field"><label for="'+id+'">'+label+'</label><div class="inp">'+ic('leaf',18)+'<input id="'+id+'" type="'+(show?'text':'password')+'" data-bind="'+bind+'" value="'+esc(val)+'" autocomplete="'+(id==='pw'?'new-password':'off')+'" placeholder="••••••••"><button type="button" data-act="togglePw" data-f="'+tog+'" aria-label="Show or hide password">'+ic(show?'eyeoff':'eye',20)+'</button></div></div>'}
 V.register=function(){var R=S.reg;return '<div class="pad top"><div class="h-row"><button class="icon-btn" data-act="back" aria-label="Back">'+ic('back')+'</button>'+logo(true)+'<span style="width:40px"></span></div>'+
  '<div class="h1" style="margin-top:18px">Create your <em>account</em></div><p class="sub" style="margin:6px 0 0">First, choose how you will use Thamer.</p>'+roleGrid(S.role)+
- '<div class="field"><label for="nm">Full Name</label><div class="inp">'+ic('user',18)+'<input id="nm" data-bind="reg.name" value="'+esc(R.name)+'" placeholder="e.g. Layla Alharbi" autocomplete="name"></div></div>'+
- '<div class="field"><label for="em">Email Address</label><div class="inp">'+ic('pin',18)+'<input id="em" type="email" data-bind="reg.email" value="'+esc(R.email)+'" placeholder="you@example.com" autocomplete="email"></div></div>'+
+ '<div class="field"><label for="nm">Full Name</label><div class="inp">'+ic('user',18)+'<input id="nm" data-bind="reg.name" value="'+esc(R.name)+'" placeholder="e.g. Sara Alotaibi" autocomplete="name"></div></div>'+
+ '<div class="field"><label for="em">Email Address</label><div class="inp">'+ic('pin',18)+'<input id="em" type="email" data-bind="reg.email" value="'+esc(R.email)+'" placeholder="name@example.com" autocomplete="email"></div></div>'+
  pwField('pw','Password',R.pw,R.show,'show','reg.pw')+pwField('pw2','Confirm Password',R.pw2,R.show2,'show2','reg.pw2')+
  (R.err?'<div class="err" role="alert">'+esc(R.err)+'</div>':'')+
  '<button class="btn primary" style="margin-top:20px" data-act="createAccount">Create '+ROLES[S.role].name+' Account</button>'+
  '<div class="foot-note" style="margin-bottom:24px">Already have an account? <button data-act="goLogin">Log In</button></div></div>'};
 V.login=function(){var L=S.login;return '<div class="pad top"><div class="h-row"><button class="icon-btn" data-act="back" aria-label="Back">'+ic('back')+'</button>'+logo(true)+'<span style="width:40px"></span></div>'+
  '<div class="h1" style="margin-top:18px">Welcome <em>back</em></div><p class="sub" style="margin:6px 0 0">Prototype sign in: any email and a password of 6+ characters works.</p>'+
- '<div class="field"><label for="le">Email Address</label><div class="inp">'+ic('pin',18)+'<input id="le" type="email" data-bind="login.email" value="'+esc(L.email)+'" placeholder="you@example.com"></div></div>'+
+ '<div class="field"><label for="le">Email Address</label><div class="inp">'+ic('pin',18)+'<input id="le" type="email" data-bind="login.email" value="'+esc(L.email)+'" placeholder="name@example.com"></div></div>'+
  pwField('lp','Password',L.pw,L.show,'lshow','login.pw')+
  '<div class="field"><label>Sign in as</label><div class="chips" style="margin-top:0">'+Object.keys(ROLES).map(function(k){return '<button class="chip '+(S.role===k?'on':'')+'" data-act="role" data-r="'+k+'" data-keep="1">'+ROLES[k].name+'</button>'}).join('')+'</div></div>'+
  (L.err?'<div class="err" role="alert">'+esc(L.err)+'</div>':'')+
